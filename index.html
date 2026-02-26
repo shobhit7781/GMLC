@@ -38,19 +38,23 @@
 
 <script>
 const noBtn = document.getElementById("noBtn");
+let count = 0;
 
 noBtn.addEventListener("mouseover", () => {
+  count++;
+
+  if(count === 5) alert("Stop trying 😭");
+  if(count === 10) alert("You cannot escape destiny 😎");
+
   const maxX = window.innerWidth - noBtn.offsetWidth;
   const maxY = window.innerHeight - noBtn.offsetHeight;
 
-  const randomX = Math.random() * maxX;
-  const randomY = Math.random() * maxY;
-
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
+  noBtn.style.left = Math.random()*maxX + "px";
+  noBtn.style.top = Math.random()*maxY + "px";
 });
 </script>
 
 </body>
 </html>
+
 
