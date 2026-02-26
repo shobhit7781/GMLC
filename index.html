@@ -12,10 +12,10 @@
     font-family: Arial;
     overflow: hidden;
 
-    /* optimized background placement */
-    background: url('bg.jpg') no-repeat center bottom/cover;
+    /* better centering for your image */
+    background: url('bg.jpg') no-repeat center 65%/cover;
 
-    /* slight overlay for readability */
+    /* readability overlay */
     background-color: rgba(0,0,0,0.25);
     background-blend-mode: darken;
   }
@@ -27,7 +27,7 @@
   .container {
     text-align: center;
     color: white;
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
 
   button {
@@ -94,11 +94,16 @@ noBtn.addEventListener("mouseover", () => {
   if(count === 10) alert("You cannot escape destiny 😎");
   if(count === 30) alert("You still trying???? 😭");
 
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+  const padding = 30;
 
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  const randomX = Math.max(padding, Math.random() * maxX);
+  const randomY = Math.max(padding, Math.random() * maxY);
+
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
 });
 
 function showTransition() {
