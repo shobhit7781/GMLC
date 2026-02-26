@@ -12,11 +12,11 @@
     font-family: Arial;
     overflow: hidden;
 
-    /* better centering for your image */
-    background: url('bg.jpg') no-repeat center 65%/cover;
+    /* background image */
+    background: url('bg.jpg') no-repeat center center/cover;
 
-    /* readability overlay */
-    background-color: rgba(0,0,0,0.25);
+    /* dark overlay for readability */
+    background-color: rgba(0,0,0,0.35);
     background-blend-mode: darken;
   }
 
@@ -27,7 +27,6 @@
   .container {
     text-align: center;
     color: white;
-    transform: translateY(-30px);
   }
 
   button {
@@ -39,6 +38,7 @@
     border-radius: 6px;
   }
 
+  /* transition screen */
   #transition {
     position: fixed;
     top: 0;
@@ -94,16 +94,11 @@ noBtn.addEventListener("mouseover", () => {
   if(count === 10) alert("You cannot escape destiny 😎");
   if(count === 30) alert("You still trying???? 😭");
 
-  const padding = 30;
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
 
-  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
-  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
-  const randomX = Math.max(padding, Math.random() * maxX);
-  const randomY = Math.max(padding, Math.random() * maxY);
-
-  noBtn.style.left = randomX + "px";
-  noBtn.style.top = randomY + "px";
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
 });
 
 function showTransition() {
