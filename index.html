@@ -12,11 +12,11 @@
     font-family: Arial;
     overflow: hidden;
 
-    /* background image */
-    background: url('bg.jpg') no-repeat center center/cover;
+    /* optimized background placement */
+    background: url('bg.jpg') no-repeat center bottom/cover;
 
-    /* dark overlay for readability */
-    background-color: rgba(0,0,0,0.35);
+    /* slight overlay for readability */
+    background-color: rgba(0,0,0,0.25);
     background-blend-mode: darken;
   }
 
@@ -27,6 +27,7 @@
   .container {
     text-align: center;
     color: white;
+    transform: translateY(-40px);
   }
 
   button {
@@ -38,7 +39,6 @@
     border-radius: 6px;
   }
 
-  /* transition screen */
   #transition {
     position: fixed;
     top: 0;
