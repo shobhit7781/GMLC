@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Click Yes Game</title>
+<title>GMLC Invitation</title>
 <style>
   body {
     height: 100vh;
@@ -12,33 +12,104 @@
     font-family: Arial;
     overflow: hidden;
 
-    /* background image */
-    background: url('bg.jpg') no-repeat center center/cover;
+    background-image: url('bg.jpg');
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
 
-    /* dark overlay for readability */
     background-color: rgba(0,0,0,0.35);
     background-blend-mode: darken;
   }
 
-  #noBtn {
-    position: absolute;
+  @media (orientation: portrait) {
+    body {
+      background-image: url('gb.jpg?v=2');
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .topline { font-size: 22px; }
+    h2 { font-size: 28px; }
+
+    button {
+      padding: 16px 36px;
+      font-size: 20px;
+      margin: 12px;
+    }
   }
+
+  #noBtn { position: absolute; }
 
   .container {
     text-align: center;
     color: white;
   }
 
+  .topline {
+    font-size: 18px;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    color: #ffd700;
+
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSlide 1.2s ease forwards;
+  }
+
+  h2 {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeSlide 1.2s ease forwards;
+    animation-delay: 0.4s;
+  }
+
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   button {
-    padding: 12px 25px;
+    padding: 14px 36px;
     font-size: 18px;
     margin: 10px;
     cursor: pointer;
-    border: none;
-    border-radius: 6px;
+    border-radius: 40px;
+    border: 2px solid transparent;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    font-weight: bold;
   }
 
-  /* transition screen */
+  .yes-btn {
+    border-color: #00ff9c;
+    box-shadow: 0 0 8px #00ff9c, 0 0 18px #00ff9c;
+    animation: pulseGlow 2s infinite ease-in-out;
+  }
+
+  .yes-btn:hover {
+    animation: none;
+    transform: scale(1.08);
+    box-shadow: 0 0 14px #00ff9c, 0 0 30px #00ff9c;
+  }
+
+  @keyframes pulseGlow {
+    0% { box-shadow: 0 0 6px #00ff9c, 0 0 12px #00ff9c; }
+    50% { box-shadow: 0 0 16px #00ff9c, 0 0 34px #00ff9c; }
+    100% { box-shadow: 0 0 6px #00ff9c, 0 0 12px #00ff9c; }
+  }
+
+  .no-btn {
+    border-color: #ff3b3b;
+    box-shadow: 0 0 8px #ff3b3b, 0 0 18px #ff3b3b;
+  }
+
   #transition {
     position: fixed;
     top: 0;
@@ -74,32 +145,53 @@
 <body>
 
 <div class="container">
-  <h2>Will you say YES?</h2>
-  <button onclick="showTransition()">Yes</button>
-  <button id="noBtn">No</button>
+  <div class="topline">Do You Dare To Move Ahead?</div>
+  <h2>Choose wisely.</h2>
+  <button class="yes-btn" onclick="showTransition()">Yes</button>
+  <button id="noBtn" class="no-btn">No</button>
 </div>
 
 <div id="transition">
-  <div class="message">Opening something special ❤️</div>
+  <div class="message">Opening something special....</div>
 </div>
+
+<audio id="escapeSound" src="click.mp3" preload="auto"></audio>
 
 <script>
 const noBtn = document.getElementById("noBtn");
+const sound = document.getElementById("escapeSound");
 let count = 0;
 
-noBtn.addEventListener("mouseover", () => {
+function playSound() {
+  sound.currentTime = 0;
+  sound.play();
+}
+
+noBtn.addEventListener("mouseenter", () => {
+  playSound();
+  escapeButton();
+});
+
+noBtn.addEventListener("touchstart", () => {
+  playSound();
+  escapeButton();
+});
+
+function escapeButton() {
   count++;
 
   if(count === 5) alert("Stop trying 😭");
   if(count === 10) alert("You cannot escape destiny 😎");
   if(count === 30) alert("You still trying???? 😭");
 
-  const maxX = window.innerWidth - noBtn.offsetWidth;
-  const maxY = window.innerHeight - noBtn.offsetHeight;
+  const padding = 30;
 
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
-});
+  const maxX = window.innerWidth - noBtn.offsetWidth - padding;
+  const maxY = window.innerHeight - noBtn.offsetHeight - padding;
+
+  noBtn.style.left = Math.max(padding, Math.random() * maxX) + "px";
+  noBtn.style.top = Math.max(padding, Math.random() * maxY) + "px";
+}
 
 function showTransition() {
   const screen = document.getElementById("transition");
